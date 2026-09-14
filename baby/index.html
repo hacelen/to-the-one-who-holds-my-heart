@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>To the One Who Holds My Heart</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap');
+
+        :root {
+            --background: #14090d;
+            --paper: #f7f2e7;
+            --ink: #3c2526;
+            --wine: #5d1824;
+            --gold: #caa321;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            color: #eadfd0;
+
+            background:
+                radial-gradient(
+                    circle at 50% 55%,
+                    rgba(105, 28, 37, 0.20),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    115deg,
+                    #12080c,
+                    #1b0b10 52%,
+                    #0e0709
+                );
+
+            font-family: "Cormorant Garamond", Georgia, serif;
+        }
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        .topbar {
+            width: 100%;
+
+            min-height: 100px;
+            padding: 14px 5%;
+
+            border-bottom: 1px solid rgba(196, 155, 54, 0.16);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        .occasion {
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            color: #cfc0b2;
+
+            font-family: "Cinzel", serif;
+            font-size: 11px;
+
+            letter-spacing: 0.06em;
+
+            white-space: nowrap;
+        }
+
+        .gold-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #d7ae20;
+
+            box-shadow:
+                0 0 8px rgba(215, 174, 32, 0.35);
+        }
+
+        /* =====================================
+           MUSIC WRAPPER
+        ===================================== */
+
+        .music-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            gap: 6px;
+        }
+
+        /* =====================================
+           MUSIC PLAYER
+        ===================================== */
+
+        .player {
+            width: 500px;
+            min-width: 500px;
+            height: 54px;
+
+            padding: 7px 13px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            border: 1px solid rgba(169, 126, 25, 0.55);
+            border-radius: 30px;
+
+            background: rgba(48, 13, 19, 0.65);
+
+            box-shadow:
+                inset 0 0 25px rgba(100, 20, 30, 0.16),
+                0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .record {
+            width: 34px;
+            height: 34px;
+
+            flex-shrink: 0;
+
+            border: 2px solid #6e5d58;
+            border-radius: 50%;
+
+            background: #050507;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .record-center {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #c69d19;
+
+            box-shadow:
+                0 0 0 3px #301016;
+        }
+
+        .track {
+            flex: 1;
+
+            line-height: 1.1;
+        }
+
+        .track strong {
+            display: block;
+
+            color: #eadfd0;
+
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .track small {
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--gold);
+
+            font-size: 10px;
+        }
+
+        /* =====================================
+           PLAY BUTTON
+        ===================================== */
+
+        .play-button {
+            width: 34px;
+            height: 34px;
+
+            flex-shrink: 0;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #c59c1a;
+
+            color: #201016;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.08);
+
+            box-shadow:
+                0 0 15px rgba(197, 156, 26, 0.45);
+        }
+
+        .play-button:active {
+            transform: scale(0.96);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+
+            margin-left: 3px;
+
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 11px solid #321419;
+
+            transition: 0.2s ease;
+        }
+
+        /* =====================================
+           PAUSE ICON
+        ===================================== */
+
+        .play-button.playing .play-icon {
+            width: 10px;
+            height: 13px;
+
+            margin-left: 0;
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    to right,
+                    #321419 0,
+                    #321419 3px,
+                    transparent 3px,
+                    transparent 7px,
+                    #321419 7px,
+                    #321419 10px
+                );
+        }
+
+        /* =====================================
+           MUSIC NOTE
+        ===================================== */
+
+        .music-note {
+            color: #b99a8c;
+
+            font-family: "Cormorant Garamond", Georgia, serif;
+
+            font-size: 12px;
+            font-style: italic;
+
+            letter-spacing: 0.03em;
+
+            text-align: center;
+        }
+
+        /* =====================================
+           MAIN CONTAINER
+        ===================================== */
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+
+            margin: 50px auto 0;
+
+            padding: 0 20px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =====================================
+           LETTER
+        ===================================== */
+
+        .letter {
+            position: relative;
+
+            width: min(950px, calc(100vw - 40px));
+
+            margin: 0 auto;
+
+            min-height: 1170px;
+
+            padding: 67px 68px 50px;
+
+            color: var(--ink);
+
+            background:
+                radial-gradient(
+                    #d2bba0 0.55px,
+                    transparent 0.7px
+                ) 0 0 / 7px 7px,
+                var(--paper);
+
+            border: 1px solid rgba(174, 129, 39, 0.65);
+
+            box-shadow:
+                0 28px 80px rgba(0, 0, 0, 0.48),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* =====================================
+           DECORATIVE CORNERS
+        ===================================== */
+
+        .corner {
+            position: absolute;
+
+            color: #b99442;
+
+            opacity: 0.45;
+
+            font-size: 18px;
+        }
+
+        .corner.top-left {
+            top: 17px;
+            left: 16px;
+        }
+
+        .corner.top-right {
+            top: 17px;
+            right: 16px;
+        }
+
+        .corner.bottom-left {
+            bottom: 17px;
+            left: 16px;
+        }
+
+        .corner.bottom-right {
+            bottom: 17px;
+            right: 16px;
+        }
+
+        /* =====================================
+           TITLE
+        ===================================== */
+
+        h1 {
+            margin: 6px 0 25px;
+
+            text-align: center;
+
+            color: #591824;
+
+            font-family: "Great Vibes", cursive;
+
+            font-size: 49px;
+            font-weight: 400;
+        }
+
+        /* =====================================
+           DIVIDER
+        ===================================== */
+
+        .divider {
+            width: 100%;
+
+            height: 1px;
+
+            margin-bottom: 38px;
+
+            background: #d7c5a9;
+        }
+
+        /* =====================================
+           LETTER CONTENT
+           
+           IMPORTANT:
+           This is now ONE COLUMN.
+           The letter text will occupy the
+           entire width and remain centered
+           inside the paper.
+        ===================================== */
+
+        .letter-content {
+            width: 100%;
+
+            display: block;
+        }
+
+        .text {
+            width: 100%;
+
+            font-size: 17px;
+
+            line-height: 1.53;
+
+            text-align: left;
+        }
+
+        .text p {
+            margin: 0 0 26px;
+        }
+
+        /* =====================================
+           SALUTATION
+        ===================================== */
+
+        .salutation {
+            color: #665250;
+
+            font-style: italic;
+        }
+
+        /* =====================================
+           DROP CAP
+        ===================================== */
+
+        .drop-cap::first-letter {
+            float: left;
+
+            margin: 8px 7px 0 0;
+
+            color: #641b28;
+
+            font-family: "Great Vibes", cursive;
+
+            font-size: 58px;
+
+            line-height: 0.72;
+        }
+
+        /* =====================================
+           CLOSING
+        ===================================== */
+
+        .closing {
+            margin-top: 40px !important;
+            margin-bottom: 2px !important;
+
+            color: #665250;
+
+            font-style: italic;
+        }
+
+        /* =====================================
+           SIGNATURE
+        ===================================== */
+
+        .signature {
+            color: #551521;
+
+            font-family: "Great Vibes", cursive;
+
+            font-size: 45px;
+        }
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        footer {
+            width: 100%;
+
+            padding: 25px 0 35px;
+
+            text-align: center;
+
+            color: #765748;
+
+            font-family: "Cinzel", serif;
+
+            font-size: 9px;
+
+            letter-spacing: 0.14em;
+        }
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 900px) {
+
+            .topbar {
+                height: auto;
+
+                padding: 15px 4%;
+
+                flex-direction: column;
+
+                align-items: center;
+            }
+
+            .occasion {
+                justify-content: center;
+            }
+
+            .player {
+                width: 500px;
+                max-width: 90vw;
+                min-width: 0;
+            }
+
+            .music-wrapper {
+                width: 100%;
+            }
+
+            .container {
+                margin-top: 25px;
+
+                padding: 0 15px;
+            }
+
+            .letter {
+                width: min(950px, 100%);
+
+                padding: 55px 35px 40px;
+            }
+        }
+
+        @media (max-width: 680px) {
+
+            .topbar {
+                padding: 15px 4%;
+            }
+
+            .occasion {
+                font-size: 10px;
+            }
+
+            .player {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .music-note {
+                font-size: 11px;
+            }
+
+            .letter {
+                width: 100%;
+
+                min-height: auto;
+
+                padding: 45px 22px 35px;
+            }
+
+            h1 {
+                font-size: 37px;
+            }
+
+            .text {
+                font-size: 16px;
+
+                line-height: 1.55;
+            }
+
+            .drop-cap::first-letter {
+                font-size: 50px;
+            }
+
+            .signature {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .letter {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .track strong {
+                font-size: 11px;
+            }
+
+            .track small {
+                font-size: 9px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header class="topbar">
+
+        <div class="occasion">
+
+            <span class="gold-dot"></span>
+
+            <span>
+                2026 September 15th
+            </span>
+
+        </div>
+
+
+        <!-- =================================
+             MUSIC PLAYER
+        ================================== -->
+
+        <div class="music-wrapper">
+
+            <div class="player">
+
+                <div class="record">
+
+                    <div class="record-center"></div>
+
+                </div>
+
+
+                <div class="track">
+
+                    <strong>
+                        Balisong (Transformed)
+                    </strong>
+
+                    <small>
+                        Song by Rico Blanco
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="play-button"
+                    id="playButton"
+                    type="button"
+                    aria-label="Play music">
+
+                    <span class="play-icon"></span>
+
+                </button>
+
+
+                <!--
+                    IMPORTANT:
+                    Put your MP3 here:
+
+                    music/balisong.mp3
+                -->
+
+                <audio
+                    id="backgroundMusic"
+                    loop
+                    preload="auto">
+
+                    <source
+                        src="./music/balisong.mp3"
+                        type="audio/mpeg">
+
+                </audio>
+
+            </div>
+
+
+            <!-- MUSIC REMINDER -->
+
+            <div class="music-note">
+                ♪ Don't forget to play the music while reading. ♪
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================
+             LETTER
+        ================================== -->
+
+        <article class="letter">
+
+
+            <!-- DECORATIVE CORNERS -->
+
+            <div class="corner top-left">
+                ❧
+            </div>
+
+            <div class="corner top-right">
+                ❧
+            </div>
+
+            <div class="corner bottom-left">
+                ❧
+            </div>
+
+            <div class="corner bottom-right">
+                ❧
+            </div>
+
+
+
+            <!-- =================================
+                 LETTER TITLE
+            ================================== -->
+
+            <h1>
+                Hi Kylaaa HAHAHA
+            </h1>
+
+
+            <div class="divider"></div>
+
+
+
+            <!-- =================================
+                 LETTER BODY
+            ================================== -->
+
+            <section class="letter-content">
+
+                <div class="text">
+
+
+                    <p class="salutation">
+                        Dear Baby,
+                    </p>
+
+
+                    <p class="drop-cap">
+                        It’s been three months since we started talking again. Three months mo na akong tinitiis, so proud of you gurl HAHAHAHAHA. Kidding aside, thank you for giving me the chance to express how I feel towards you ulit. Thank you for risking. Mahirap magbigay ng trust ulit, I know, pero you still took the risk and I really appreciate that.
+                    </p>
+
+
+                    <p>
+                        So ayun, this song reminds me of you — “Balisong” by Rico Blanco.
+                    </p>
+
+
+                    <p>
+                        Sobrang nakakatakot magmahal. Even ako, natatakot. Pero wala eh, mas nangingibabaw yung love na meron ako for you, and ayoko na sayangin kasi paano if mapunta ka sa iba na hindi ko man lang sinubukan na lumapit ulit? Edi habang buhay ko na lang mare-regret ‘yon. Hindi magiging Yeng at Ryan HAHAHAHAHAHA.
+                    </p>
+
+
+                    <p>
+                        Sabi nga sa chorus:
+                    </p>
+
+
+                    <p>
+                        “Never in my life have I been more sure<br>
+                        Nobody's made me feel this way before<br>
+                        Never in my life have I been more sure<br>
+                        You're everything I wanted.”
+                    </p>
+
+
+                    <p>
+                        Te, wala na, hindi na ako mae-excite kapag ibang tao ulit, napapagod na akong mag-introduce yourself HAHAHAHAHAHA
+                    </p>
+
+
+                    <p>
+                        Basta, I’m sure of you.
+                    </p>
+
+
+                    <p>
+                        Wala na akong pake sa sasabihin ng mga tao sa paligid or kung malaman man nila na I like someone who is the same gender as me. Love is love. Pero syempre, I’ll always respect your decision and whatever you feel.
+                    </p>
+
+
+                    <p>
+                        “You are my sun in my skies<br>
+                        You are the days in my nights, baby<br>
+                        You're everything I wanted<br>
+                        You are the reason I smile<br>
+                        You put the worth in my while, baby<br>
+                        You're everything I wanted.”
+                    </p>
+
+
+                    <p>
+                        Love shouldn’t revolve around just you or me. But just like the bridge of this song, this is how I perceive you. Kung mahal kita when we were younger, mas mahal kita ngayon.
+                    </p>
+
+
+                    <p>
+                        I don’t have anything big to promise you, pero mamahalin kita sa abot ng makakaya ko. Maghihintay ako until you’re ready. And please, don’t feel pressured every time I joke about it. Gusto ko naman na talaga, magbeg na ba me? HAHAHAHAHAHA kimi.
+                    </p>
+
+
+                    <p>
+                        May mga pagbabago sa atin, of course. Expected na rin naman ‘yon sa tagal ba naman. Lalo na ikaw, minsan napapawaaaah na lang ako sa pagiging hyper-independent mo, ‘te. HAHAHAHAHA.
+                    </p>
+
+
+                    <p>
+                        Alam ko naman na hindi mo ako kailangan, pero please let me do things for youuu. Mag-demand ka naman uy! Hindi ko na lang alam minsan kung ano gagawin ko or kung ano maio-offer ko sa’yo, jusko. Landi, kaartehan, minsan pagsusungit na lang nabibigay ko eh HAHAHAHAHAHA.
+                    </p>
+
+
+                    <p>
+                        But seriously, I’m just happy that after everything, may mga dumaan na naging temporary sa life natin, may mga naging importante for the mean time yet we somehow found our way back to each other. Ang funny noh? HAHAHAHAHAHA ang rupok.
+                    </p>
+
+
+                    <p>
+                        I don’t know what will happen next. I don’t want to force anything or rush you. I just want you to know that I’m here, and I’m willing to take things one day at a time.
+                    </p>
+
+
+                    <p>
+                        And if someday you’re ready to take that risk with me again, I hope you know that I’ll be here, ready to take that risk with you too.
+                    </p>
+
+
+                    <p>
+                        While you’re busy working for your dreams, please don’t forget to take care of yourself too. Don’t forget to rest and treat yourself well, okay? Alam kong gusto mong ma-achieve lahat ng goals mo and I’ll always be proud of you for working hard for them, pero if napapagod ka, magpahinga ka ha? You don’t always have to keep going when you’re already tired. Resting doesn’t mean you’re falling behind. Deserve mo rin magpahinga, mag-enjoy, and do things that make you happy.
+                    </p>
+
+
+                    <p>
+                        I’ll always be here to support you, cheer for you, annoy you, make lambing, and remind you na matulog din gurl kapag nakakalimutan mo na naman. HAHAHAHAHAHA.
+                    </p>
+
+
+                    <p class="closing">
+                        Yours, nalang ako HAHAHAHAHAHA emz
+                    </p>
+
+
+                    <p class="closing">
+                        Yours,
+                    </p>
+
+
+                    <div class="signature">
+                        Hacelen
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        </article>
+
+
+
+        <!-- =================================
+             FOOTER
+        ================================== -->
+
+        <footer>
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script>
+
+        /* =================================
+           MUSIC PLAYER
+        ================================== */
+
+        const playButton =
+            document.getElementById("playButton");
+
+        const backgroundMusic =
+            document.getElementById("backgroundMusic");
+
+
+        function updateMusicButton() {
+
+            if (!playButton || !backgroundMusic) {
+                return;
+            }
+
+
+            const playing =
+                !backgroundMusic.paused &&
+                !backgroundMusic.ended;
+
+
+            playButton.classList.toggle(
+                "playing",
+                playing
+            );
+
+
+            playButton.setAttribute(
+                "aria-label",
+                playing
+                    ? "Pause music"
+                    : "Play music"
+            );
+        }
+
+
+        if (playButton && backgroundMusic) {
+
+            playButton.addEventListener(
+                "click",
+                async function () {
+
+                    if (backgroundMusic.paused) {
+
+                        try {
+
+                            /*
+                             * This play() is triggered directly
+                             * by the user's button click, which
+                             * allows the browser to start audio.
+                             */
+
+                            await backgroundMusic.play();
+
+                            updateMusicButton();
+
+                        } catch (error) {
+
+                            console.error(
+                                "Audio playback error:",
+                                error
+                            );
+
+
+                            alert(
+                                "The music could not be played.\n\n" +
+                                "Please make sure your MP3 file is here:\n\n" +
+                                "music/balisong.mp3"
+                            );
+
+                        }
+
+                    } else {
+
+                        backgroundMusic.pause();
+
+                        updateMusicButton();
+
+                    }
+
+                }
+            );
+
+
+            backgroundMusic.addEventListener(
+                "play",
+                updateMusicButton
+            );
+
+
+            backgroundMusic.addEventListener(
+                "pause",
+                updateMusicButton
+            );
+
+
+            backgroundMusic.addEventListener(
+                "ended",
+                updateMusicButton
+            );
+
+
+            backgroundMusic.addEventListener(
+                "error",
+                function () {
+
+                    console.error(
+                        "Could not load music/balisong.mp3."
+                    );
+
+                }
+            );
+
+
+            updateMusicButton();
+
+        }
+
+    </script>
+
+</body>
+
+</html>
